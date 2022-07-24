@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using UnhollowerRuntimeLib;
 using HarmonyLib;
 using System.Linq;
-using UnityEngine;
-using Input = BepInEx.IL2CPP.UnityEngine.Input;
 using KeyCode = BepInEx.IL2CPP.UnityEngine.KeyCode;
 
 namespace RF5.HisaCat.DialogueSkipper
@@ -25,6 +23,8 @@ namespace RF5.HisaCat.DialogueSkipper
         public static ConfigEntry<float> fSkipDelayTimeSec;
         public static ConfigEntry<string> shortCutConfig;
         public static List<KeyCode> shortCutKeys = null;
+        public static ConfigEntry<string> shortCutRF5KeyConfig;
+        public static RF5Input.Key shortCutRF5Key = 0;
 
         public BepInExLoader()
         {
@@ -34,22 +34,54 @@ namespace RF5.HisaCat.DialogueSkipper
             fSkipDelayTimeSec = Config.Bind("Options", "Skip Delay Time Sec", 0.1f,
                 new ConfigDescription("Delay time in seconds between dialogues on skip"));
 
-            shortCutConfig = Config.Bind("Keys",
-                "Skip Dialogue",
-                string.Join(" | ", new KeyCode[] { KeyCode.LeftControl }.Select(x => x.ToString())),
-                new ConfigDescription("UnityEngine.KeyCode sets for skip dialogue (Combination with OR \'|\')\r\n" +
-                "See KeyCodes at https://docs.bepinex.dev/master/api/BepInEx.IL2CPP.UnityEngine.KeyCode.html"));
-            shortCutKeys = new List<KeyCode>();
             {
-                var keysStr = shortCutConfig.Value.Split('|').Select(x => x.Replace(" ", ""));
-                foreach (var keyStr in keysStr)
+                shortCutConfig = Config.Bind("Keys",
+                    "Skip Dialogue (KeyCode)",
+                    string.Join(" | ", new KeyCode[] { KeyCode.LeftControl }.Select(x => x.ToString())),
+                    new ConfigDescription("UnityEngine.KeyCode sets for skip dialogue (Combination with OR \'|\')\r\n" +
+                    "See KeyCodes at https://docs.bepinex.dev/master/api/BepInEx.IL2CPP.UnityEngine.KeyCode.html"));
+                shortCutKeys = new List<KeyCode>();
                 {
-                    KeyCode key;
-                    if (System.Enum.TryParse(keyStr, out key))
-                        shortCutKeys.Add(key);
+                    var keysStr = shortCutConfig.Value.Split('|').Select(x => x.Replace(" ", ""));
+                    foreach (var keyStr in keysStr)
+                    {
+                        KeyCode key;
+                        if (System.Enum.TryParse(keyStr, out key))
+                        {
+                            if (shortCutKeys.Contains(key) == false)
+                                shortCutKeys.Add(key);
+                        }
+                    }
+                }
+                shortCutConfig.Value = string.Join(" | ", shortCutKeys.Select(x => x.ToString()));
+            }
+
+            {
+                shortCutRF5KeyConfig = Config.Bind("Keys",
+                    "Skip Dialogue (RF5Input.Key)",
+                    string.Join(" | ", new RF5Input.Key[] { RF5Input.Key.R }.Select(x => x.ToString())),
+                    new ConfigDescription("RF5Input.Key sets for skip dialogue (Combination with OR \'|\')\r\n" +
+                    "See Key at https://gist.github.com/hisacat/612a47466cc6ab66f87bc7a677c5cfb7"));
+                var temp = new List<RF5Input.Key>();
+                {
+                    var keysStr = shortCutRF5KeyConfig.Value.Split('|').Select(x => x.Replace(" ", ""));
+                    foreach (var keyStr in keysStr)
+                    {
+                        RF5Input.Key key;
+                        if (System.Enum.TryParse(keyStr, out key))
+                        {
+                            if (temp.Contains(key) == false)
+                                temp.Add(key);
+                        }
+                    }
+                }
+                shortCutRF5KeyConfig.Value = string.Join(" | ", temp.Select(x => x.ToString()));
+
+                foreach (var key in temp)
+                {
+                    shortCutRF5Key |= key;
                 }
             }
-            shortCutConfig.Value = string.Join(" | ", shortCutKeys.Select(x => x.ToString()));
         }
 
         public override void Load()
