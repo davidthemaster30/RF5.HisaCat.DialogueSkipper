@@ -31,7 +31,7 @@ or install other base mod BepInEx already included (like [RF5Fix mod](https://gi
 * `[Options]` section
 
   * `Skip Delay Time Sec`.<br>
-    Delay time in seconds between dialogues on skip (default value is 0.1)
+    Delay time in seconds between dialogues on skip (default value is 0)
 
 ## Known issues
 
