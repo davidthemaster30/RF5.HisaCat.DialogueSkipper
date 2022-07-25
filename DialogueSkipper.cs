@@ -83,7 +83,10 @@ namespace RF5.HisaCat.DialogueSkipper
                             {
                                 //Print text to end.
                                 if (AdvMain.Instance.textWindow != null)
-                                    AdvMain.Instance.textWindow.forceDisp();
+                                {
+                                    if (AdvMain.Instance.textWindow.textLength > 0 && AdvMain.Instance.textWindow.dispLength < AdvMain.Instance.textWindow.textLength)
+                                        AdvMain.Instance.textWindow.forceDisp();
+                                }
 
                                 if (this.curSkipWaitTime >= BepInExLoader.fSkipDelayTimeSec.Value)
                                 {
