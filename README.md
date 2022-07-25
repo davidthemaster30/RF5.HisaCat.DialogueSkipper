@@ -5,6 +5,7 @@
 |Vanilla skip|Mod skip|
 
 This mod allows skips including the **wait times** and **little cut-scenes** between dialogues.
+
 Default Mod skip key binding is `Left control` in keyboard, `Dash key` in RF5.
 
 ## Installation
@@ -19,18 +20,22 @@ or install other base mod BepInEx already included (like [RF5Fix mod](https://gi
 * Open config file in `<GameDirectory>\BepInEx\config\RF5.HisaCat.DialogueSkipper.cfg` end edit each lines.
 
 * `[Keys]` section
-  * `Skip Dialogue (KeyCode)`
-    Skip key binding in Keyboard keys. see keys list at [here](https://docs.bepinex.dev/master/api/BepInEx.IL2CPP.UnityEngine.KeyCode.html)
+
+  * `Skip Dialogue (KeyCode)`<br>
+    Skip key binding in Keyboard keys. see keys list at [here](https://docs.bepinex.dev/master/api/BepInEx.IL2CPP.UnityEngine.KeyCode.html)<br>
     (To combine keys, use '|' like `LeftControl | LeftShift`)
-  * `Skip Dialogue (RF5Input.Key)`
-    Skip key binding in RF5 keys.  see keys list at [here](https://gist.github.com/hisacat/612a47466cc6ab66f87bc7a677c5cfb7)
+  * `Skip Dialogue (RF5Input.Key)`<br>
+    Skip key binding in RF5 keys.  see keys list at [here](https://gist.github.com/hisacat/612a47466cc6ab66f87bc7a677c5cfb7)<br>
     (To combine keys, use '|' like `ZL | ZR`)
 
 * `[Options]` section
-  * `Skip Delay Time Sec`.
+
+  * `Skip Delay Time Sec`.<br>
     Delay time in seconds between dialogues on skip (default value is 0)
 
 ## Known issues
-* binding key on `Skip Dialogue (RF5Input.Key)` is not working during key blocked from tutorial.
+
+* binding key on `Skip Dialogue (RF5Input.Key)` is not working during key blocked from tutorial.<br>
   (`Skip Dialogue (KeyCode)` is working)
+
 * `Skip Delay Time Sec` is not working if binding key is vanilla's skip key.
