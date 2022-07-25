@@ -74,49 +74,55 @@ namespace RF5.HisaCat.DialogueSkipper
                         BepInExLoader.log.LogMessage($"this.curSkipWaitTime: {this.curSkipWaitTime}");
                     }
 
-                    switch (AdvMain.Instance.work)
+                    try
                     {
-                        case AdvMain.WorkList.WORK_NONE:
-                            break;
-                        //일반 대사 대기중
-                        case AdvMain.WorkList.WORK_MESSAGE_WAIT:
-                            {
-                                //Print text to end.
-                                if (AdvMain.Instance.textWindow != null)
+                        switch (AdvMain.Instance.work)
+                        {
+                            case AdvMain.WorkList.WORK_NONE:
+                                break;
+                            //일반 대사 대기중
+                            case AdvMain.WorkList.WORK_MESSAGE_WAIT:
                                 {
-                                    if (AdvMain.Instance.textWindow.textLength > 0 && AdvMain.Instance.textWindow.dispLength < AdvMain.Instance.textWindow.textLength)
-                                        AdvMain.Instance.textWindow.forceDisp();
-                                }
+                                    //Print text to end.
+                                    if (AdvMain.Instance.textWindow != null)
+                                    {
+                                        if (AdvMain.Instance.textWindow.textLength > 0 && AdvMain.Instance.textWindow.dispLength < AdvMain.Instance.textWindow.textLength)
+                                            AdvMain.Instance.textWindow.forceDisp();
+                                    }
 
-                                if (this.curSkipWaitTime >= BepInExLoader.fSkipDelayTimeSec.Value)
-                                {
-                                    //AdvMain.Instance.isWait = false; //Force skip wait.
-                                    AdvMain.Instance.onTextWindowClick(); //Simulate click TextWindow.
+                                    if (this.curSkipWaitTime >= BepInExLoader.fSkipDelayTimeSec.Value)
+                                    {
+                                        //AdvMain.Instance.isWait = false; //Force skip wait.
+                                        AdvMain.Instance.onTextWindowClick(); //Simulate click TextWindow.
+                                    }
                                 }
-                            }
-                            break;
-                        //선택지 선택 대기중
-                        case AdvMain.WorkList.WORK_SELECT_WAIT:
-                            {
-                                //...
-                            }
-                            break;
-                        //이벤트 컷씬 등 대기중 (Ex: 초반 서장실 입실 레비아 컷씬)
-                        case AdvMain.WorkList.WORK_TIMELINE_END_WAIT:
-                            {
-                                //Basically it can skip with press 'F' key
-                            }
-                            break;
-                        //대사와 대사 사이 등, Script에 내장되어있는 대기시간으로 추정
-                        case AdvMain.WorkList.WORK_WAIT:
-                            {
-                                //var leftWaitTime = AdvMain.Instance.waitSec - AdvMain.Instance.waitStartTime;
-                                //AdvMain.Instance.waitStartTime += leftWaitTime;
-                                AdvMain.Instance.waitStartTime = AdvMain.Instance.waitSec;
-                            }
-                            break;
+                                break;
+                            //선택지 선택 대기중
+                            case AdvMain.WorkList.WORK_SELECT_WAIT:
+                                {
+                                    //...
+                                }
+                                break;
+                            //이벤트 컷씬 등 대기중 (Ex: 초반 서장실 입실 레비아 컷씬)
+                            case AdvMain.WorkList.WORK_TIMELINE_END_WAIT:
+                                {
+                                    //Basically it can skip with press 'F' key
+                                }
+                                break;
+                            //대사와 대사 사이 등, Script에 내장되어있는 대기시간으로 추정
+                            case AdvMain.WorkList.WORK_WAIT:
+                                {
+                                    //var leftWaitTime = AdvMain.Instance.waitSec - AdvMain.Instance.waitStartTime;
+                                    //AdvMain.Instance.waitStartTime += leftWaitTime;
+                                    AdvMain.Instance.waitStartTime = AdvMain.Instance.waitSec;
+                                }
+                                break;
+                        }
                     }
-
+                    catch (System.Exception e)
+                    {
+                        BepInExLoader.log.LogError($"[DialogueSkipper] Exception: {e}\r\n");
+                    }
                     if (BepInExLoader.bDevLog.Value)
                     {
                         BepInExLoader.log.LogMessage($"[DialogueSkipper] Print ends.\r\n");
