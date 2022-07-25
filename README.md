@@ -4,8 +4,9 @@
 |---|---|
 |Vanilla skip|Mod skip|
 
+This mod allows skips including the **wait times** and **little cutscenes** between dialogues.<br><br>
+
 <img src="https://user-images.githubusercontent.com/17191898/180816559-326b28eb-80c1-426d-a16b-a5df5a9433ee.gif">
-This mod allows skips including the **wait times** and **little cutscenes** between dialogues.<br>
 And also it allows skip sleep, wake up cutscenes.<br><br>
 
 Default Mod skip key binding is `Left control` in keyboard, `Dash key` in RF5.
