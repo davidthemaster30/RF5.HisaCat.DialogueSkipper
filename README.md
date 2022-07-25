@@ -1,6 +1,6 @@
 # # Rune Factory 5 - Dialogue Skipper
 
-|<img src="https://user-images.githubusercontent.com/17191898/180761441-29e238ae-1a23-4020-a71c-59af48d35393.gif">|<img src="https://user-images.githubusercontent.com/17191898/180761430-0ab3da32-bfe2-4676-9812-6b6f03cbb393.gif">|
+|<img src="https://user-images.githubusercontent.com/17191898/180761441-29e238ae-1a23-4020-a71c-59af48d35393.gif">|<img src="https://user-images.githubusercontent.com/17191898/180807633-9925e4b8-70a4-4c58-9d9a-8c0229a012d5.gif">|
 |---|---|
 |Vanilla skip|Mod skip|
 
