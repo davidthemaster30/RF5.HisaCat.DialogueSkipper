@@ -15,7 +15,7 @@ namespace RF5.HisaCat.DialogueSkipper
             MODNAME = "DialogueSkipper",
             AUTHOR = "HisaCat",
             GUID = "RF5." + AUTHOR + "." + MODNAME,
-            VERSION = "1.0.0";
+            VERSION = "1.0.1";
 
         public static BepInEx.Logging.ManualLogSource log;
 
@@ -31,7 +31,7 @@ namespace RF5.HisaCat.DialogueSkipper
             log = Log;
 
             bDevLog = Config.Bind("Options", "Print devlop log", false);
-            fSkipDelayTimeSec = Config.Bind("Options", "Skip Delay Time Sec", 0.1f,
+            fSkipDelayTimeSec = Config.Bind("Options", "Skip Delay Time Sec", 0f,
                 new ConfigDescription("Delay time in seconds between dialogues on skip"));
 
             {
