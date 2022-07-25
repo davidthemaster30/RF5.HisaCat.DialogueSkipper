@@ -90,8 +90,6 @@ namespace RF5.HisaCat.DialogueSkipper
                                     //AdvMain.Instance.isWait = false; //Force skip wait.
                                     AdvMain.Instance.onTextWindowClick(); //Simulate click TextWindow.
                                 }
-
-                                if (isKeyEvent) curEvt.Use();
                             }
                             break;
                         //선택지 선택 대기중
@@ -112,8 +110,6 @@ namespace RF5.HisaCat.DialogueSkipper
                                 //var leftWaitTime = AdvMain.Instance.waitSec - AdvMain.Instance.waitStartTime;
                                 //AdvMain.Instance.waitStartTime += leftWaitTime;
                                 AdvMain.Instance.waitStartTime = AdvMain.Instance.waitSec;
-
-                                if (isKeyEvent) curEvt.Use();
                             }
                             break;
                     }
