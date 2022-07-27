@@ -43,3 +43,7 @@ or install other base mod BepInEx already included (like [RF5Fix mod](https://gi
   (`Skip Dialogue (KeyCode)` is working)
 
 * `Skip Delay Time Sec` is not working if binding key is vanilla's skip key.
+
+## Mirrors
+
+* [Nexus Mods](https://www.nexusmods.com/runefactory5)
