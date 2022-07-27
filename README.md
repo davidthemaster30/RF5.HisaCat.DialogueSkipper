@@ -6,8 +6,9 @@
 
 This mod allows skips including the **wait times** and **little cutscenes** between dialogues.<br><br>
 
-<img src="https://user-images.githubusercontent.com/17191898/180816559-326b28eb-80c1-426d-a16b-a5df5a9433ee.gif">
-And also it allows skip sleep, wake up cutscenes.<br><br>
+<img src="https://user-images.githubusercontent.com/17191898/180816559-326b28eb-80c1-426d-a16b-a5df5a9433ee.gif" width=300> <img src="https://user-images.githubusercontent.com/17191898/181171847-1819005d-bdee-4415-a786-25522ba3c1b8.gif" width=300>
+
+And also it allows skip sleep, wake up, bathhouse cutscenes etc. <br><br>
 
 Default Mod skip key binding is `Left control` in keyboard, `Dash key` in RF5.
 
