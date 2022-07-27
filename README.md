@@ -46,4 +46,4 @@ or install other base mod BepInEx already included (like [RF5Fix mod](https://gi
 
 ## Mirrors
 
-* [Nexus Mods](https://www.nexusmods.com/runefactory5)
+* [Nexus Mods](https://www.nexusmods.com/runefactory5/mods/22)
