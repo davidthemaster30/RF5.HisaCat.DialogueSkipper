@@ -12,7 +12,7 @@ public class Bootstrapper : MonoBehaviour
     [HarmonyPostfix]
     public static void Update()
     {
-        if (instance_DialogueSkipper == null)
+        if (instance_DialogueSkipper is null)
         {
             BepInExLoader.log.LogMessage("[DialogueSkipper] Initializing...");
             GameObject containerObj = null;
@@ -22,13 +22,13 @@ public class Bootstrapper : MonoBehaviour
                 DontDestroyOnLoad(containerObj);
                 instance_DialogueSkipper = containerObj.AddComponent<DialogueSkipper>();
 
-                if (instance_DialogueSkipper != null)
+                if (instance_DialogueSkipper is not null)
                 {
                     BepInExLoader.log.LogMessage("[DialogueSkipper] DialogueSkipper created!");
                 }
                 else
                 {
-                    if (containerObj != null)
+                    if (containerObj is not null)
                     {
                         Destroy(containerObj);
                         containerObj = null;
@@ -39,7 +39,7 @@ public class Bootstrapper : MonoBehaviour
             {
                 BepInExLoader.log.LogMessage($"[DialogueSkipper] Initialized faled. {e}");
 
-                if (containerObj != null)
+                if (containerObj is not null)
                 {
                     Destroy(containerObj);
                     containerObj = null;

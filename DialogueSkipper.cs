@@ -14,9 +14,9 @@ public class DialogueSkipper : MonoBehaviour
     private float curSkipWaitTime = 0;
     public void Update()
     {
-        if (AdvMain.Instance != null)
+        if (AdvMain.Instance is not null)
         {
-            if (AdvMain.Instance.scriptwork != null)
+            if (AdvMain.Instance.scriptwork is not null)
             {
                 if (this.lastAddr != AdvMain.Instance.scriptwork.Addr)
                 {
@@ -33,7 +33,7 @@ public class DialogueSkipper : MonoBehaviour
             var curEvt = Event.current;
             bool isKeyEvent = false;
             bool execute = false;
-            if (curEvt != null)
+            if (curEvt is not null)
             {
                 if (BepInExLoader.shortCutKeys.All(x => Input.GetKeyInt(x)))
                 {
@@ -82,7 +82,7 @@ public class DialogueSkipper : MonoBehaviour
                         case AdvMain.WorkList.WORK_MESSAGE_WAIT:
                             {
                                 //Print text to end.
-                                if (AdvMain.Instance.textWindow != null)
+                                if (AdvMain.Instance.textWindow is not null)
                                 {
                                     if (AdvMain.Instance.textWindow.textLength > 0 && AdvMain.Instance.textWindow.dispLength < AdvMain.Instance.textWindow.textLength)
                                         AdvMain.Instance.textWindow.forceDisp();
