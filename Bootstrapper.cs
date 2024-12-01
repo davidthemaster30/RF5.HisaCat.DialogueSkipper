@@ -1,51 +1,48 @@
-﻿using System;
-using HarmonyLib;
+﻿using HarmonyLib;
 using UnityEngine;
 
+namespace RF5.HisaCat.DialogueSkipper;
 
-namespace RF5.HisaCat.DialogueSkipper
+public class Bootstrapper : MonoBehaviour
 {
-    public class Bootstrapper : MonoBehaviour
+    private static DialogueSkipper instance_DialogueSkipper = null;
+
+    public Bootstrapper(IntPtr intPtr) : base(intPtr) { }
+
+    [HarmonyPostfix]
+    public static void Update()
     {
-        private static DialogueSkipper instance_DialogueSkipper = null;
-
-        public Bootstrapper(IntPtr intPtr) : base(intPtr) { }
-
-        [HarmonyPostfix]
-        public static void Update()
+        if (instance_DialogueSkipper == null)
         {
-            if (instance_DialogueSkipper == null)
+            BepInExLoader.log.LogMessage("[DialogueSkipper] Initializing...");
+            GameObject containerObj = null;
+            try
             {
-                BepInExLoader.log.LogMessage("[DialogueSkipper] Initializing...");
-                GameObject containerObj = null;
-                try
-                {
-                    containerObj = new GameObject("#DialogueSkipper#");
-                    DontDestroyOnLoad(containerObj);
-                    instance_DialogueSkipper = containerObj.AddComponent<DialogueSkipper>();
+                containerObj = new GameObject("#DialogueSkipper#");
+                DontDestroyOnLoad(containerObj);
+                instance_DialogueSkipper = containerObj.AddComponent<DialogueSkipper>();
 
-                    if (instance_DialogueSkipper != null)
-                    {
-                        BepInExLoader.log.LogMessage("[DialogueSkipper] DialogueSkipper created!");
-                    }
-                    else
-                    {
-                        if (containerObj != null)
-                        {
-                            Destroy(containerObj);
-                            containerObj = null;
-                        }
-                    }
+                if (instance_DialogueSkipper != null)
+                {
+                    BepInExLoader.log.LogMessage("[DialogueSkipper] DialogueSkipper created!");
                 }
-                catch (Exception e)
+                else
                 {
-                    BepInExLoader.log.LogMessage($"[DialogueSkipper] Initialized faled. {e}");
-
                     if (containerObj != null)
                     {
                         Destroy(containerObj);
                         containerObj = null;
                     }
+                }
+            }
+            catch (Exception e)
+            {
+                BepInExLoader.log.LogMessage($"[DialogueSkipper] Initialized faled. {e}");
+
+                if (containerObj != null)
+                {
+                    Destroy(containerObj);
+                    containerObj = null;
                 }
             }
         }
