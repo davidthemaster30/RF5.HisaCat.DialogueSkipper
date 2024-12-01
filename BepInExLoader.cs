@@ -1,15 +1,16 @@
 ﻿using BepInEx;
 using BepInEx.Configuration;
-using System.Collections.Generic;
-using UnhollowerRuntimeLib;
 using HarmonyLib;
 using System.Linq;
-using KeyCode = BepInEx.IL2CPP.UnityEngine.KeyCode;
+using BepInEx.Unity.IL2CPP;
+using Il2CppInterop.Runtime.Injection;
+using BepInEx.Unity.IL2CPP.UnityEngine;
+
 
 namespace RF5.HisaCat.DialogueSkipper
 {
     [BepInPlugin(GUID, MODNAME, VERSION)]
-    public class BepInExLoader : BepInEx.IL2CPP.BasePlugin
+    public class BepInExLoader : BasePlugin
     {
         public const string
             MODNAME = "DialogueSkipper",

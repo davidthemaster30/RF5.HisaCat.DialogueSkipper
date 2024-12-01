@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using System.Linq;
-using Input = BepInEx.IL2CPP.UnityEngine.Input;
+using BepInEx.Unity.IL2CPP.UnityEngine;
+
 
 namespace RF5.HisaCat.DialogueSkipper
 {
