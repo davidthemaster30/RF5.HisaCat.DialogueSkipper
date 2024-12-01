@@ -5,7 +5,7 @@ namespace RF5.HisaCat.DialogueSkipper;
 
 public class Bootstrapper : MonoBehaviour
 {
-    private static DialogueSkipper instance_DialogueSkipper = null;
+    private static DialogueSkipper? instance_DialogueSkipper = null;
 
     public Bootstrapper(IntPtr intPtr) : base(intPtr) { }
 
@@ -15,7 +15,7 @@ public class Bootstrapper : MonoBehaviour
         if (instance_DialogueSkipper is null)
         {
             BepInExLoader.log.LogMessage("[DialogueSkipper] Initializing...");
-            GameObject containerObj = null;
+            GameObject? containerObj = null;
             try
             {
                 containerObj = new GameObject("#DialogueSkipper#");
@@ -37,7 +37,7 @@ public class Bootstrapper : MonoBehaviour
             }
             catch (Exception e)
             {
-                BepInExLoader.log.LogMessage($"[DialogueSkipper] Initialized faled. {e}");
+                BepInExLoader.log.LogMessage($"[DialogueSkipper] Initializing failed. {e}");
 
                 if (containerObj is not null)
                 {

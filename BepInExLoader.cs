@@ -30,7 +30,7 @@ public class BepInExLoader : BasePlugin
     {
         log = Log;
 
-        bDevLog = Config.Bind("Options", "Print devlop log", false);
+        bDevLog = Config.Bind("Options", "Print dev log", false);
         fSkipDelayTimeSec = Config.Bind("Options", "Skip Delay Time Sec", 0f,
             new ConfigDescription("Delay time in seconds between dialogues on skip"));
 
@@ -38,7 +38,7 @@ public class BepInExLoader : BasePlugin
             shortCutConfig = Config.Bind("Keys",
                 "Skip Dialogue (KeyCode)",
                 string.Join(" | ", new KeyCode[] { KeyCode.LeftControl }.Select(x => x.ToString())),
-                new ConfigDescription("UnityEngine.KeyCode sets for skip dialogue (Combination with OR \'|\')\r\n" +
+                new ConfigDescription("UnityEngine.KeyCode sets for skip dialogue (Combination with OR \'|\')" + Environment.NewLine + 
                 "See KeyCodes at https://docs.bepinex.dev/master/api/BepInEx.IL2CPP.UnityEngine.KeyCode.html"));
             shortCutKeys = new List<KeyCode>();
             {
@@ -60,7 +60,7 @@ public class BepInExLoader : BasePlugin
             shortCutRF5KeyConfig = Config.Bind("Keys",
                 "Skip Dialogue (RF5Input.Key)",
                 string.Join(" | ", new RF5Input.Key[] { RF5Input.Key.R }.Select(x => x.ToString())),
-                new ConfigDescription("RF5Input.Key sets for skip dialogue (Combination with OR \'|\')\r\n" +
+                new ConfigDescription("RF5Input.Key for skip dialogue (Combination with OR \'|\')" + Environment.NewLine + 
                 "See Key at https://gist.github.com/hisacat/612a47466cc6ab66f87bc7a677c5cfb7"));
             var temp = new List<RF5Input.Key>();
             {
@@ -106,7 +106,7 @@ public class BepInExLoader : BasePlugin
         }
         catch
         {
-            log.LogError("[DialogueSkipper] Harmony - FAILED to Apply Patch's!");
+            log.LogError("[DialogueSkipper] Harmony - FAILED to Apply Patches!");
         }
     }
 }
