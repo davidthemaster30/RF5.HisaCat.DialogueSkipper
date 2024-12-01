@@ -18,36 +18,26 @@ public class DialogueSkipper : MonoBehaviour
         {
             if (AdvMain.Instance.scriptwork is not null)
             {
-                if (this.lastAddr != AdvMain.Instance.scriptwork.Addr)
+                if (lastAddr != AdvMain.Instance.scriptwork.Addr)
                 {
-                    this.lastAddr = AdvMain.Instance.scriptwork.Addr;
-                    this.curSkipWaitTime = 0;
+                    lastAddr = AdvMain.Instance.scriptwork.Addr;
+                    curSkipWaitTime = 0;
                 }
             }
             else
             {
-                this.lastAddr = 0;
-                //this.curSkipWaitTime = 0;
+                lastAddr = 0;
             }
 
-            var curEvt = Event.current;
-            bool isKeyEvent = false;
             bool execute = false;
-            if (curEvt is not null)
+            if (Event.current is not null && BepInExLoader.shortCutKeys.All(x => Input.GetKeyInt(x)))
             {
-                if (BepInExLoader.shortCutKeys.All(x => Input.GetKeyInt(x)))
-                {
-                    isKeyEvent = true;
-                    execute = true;
-                }
+                execute = true;
             }
-            if (execute == false)
+
+            if (!execute && BepInExLoader.shortCutRF5Key != 0 && ((RF5Input.Pad.Data.PushData & BepInExLoader.shortCutRF5Key) == BepInExLoader.shortCutRF5Key))
             {
-                if (BepInExLoader.shortCutRF5Key != 0 &&
-                    ((RF5Input.Pad.Data.PushData & BepInExLoader.shortCutRF5Key) == BepInExLoader.shortCutRF5Key))
-                {
-                    execute = true;
-                }
+                execute = true;
             }
 
             if (execute)
@@ -69,7 +59,7 @@ public class DialogueSkipper : MonoBehaviour
                     BepInExLoader.log.LogMessage($"scriptwork.commandIndex: {AdvMain.Instance.scriptwork.commandIndex}");
                     BepInExLoader.log.LogMessage($"scriptwork.commandNum: {AdvMain.Instance.scriptwork.commandNum}");
 
-                    BepInExLoader.log.LogMessage($"this.curSkipWaitTime: {this.curSkipWaitTime}");
+                    BepInExLoader.log.LogMessage($"this.curSkipWaitTime: {curSkipWaitTime}");
                 }
 
                 try
@@ -78,56 +68,47 @@ public class DialogueSkipper : MonoBehaviour
                     {
                         case AdvMain.WorkList.WORK_NONE:
                             break;
-                        //일반 대사 대기중
                         case AdvMain.WorkList.WORK_MESSAGE_WAIT:
                             {
                                 //Print text to end.
-                                if (AdvMain.Instance.textWindow is not null)
+                                if (AdvMain.Instance.textWindow?.textLength > 0 && AdvMain.Instance.textWindow.dispLength < AdvMain.Instance.textWindow.textLength)
                                 {
-                                    if (AdvMain.Instance.textWindow.textLength > 0 && AdvMain.Instance.textWindow.dispLength < AdvMain.Instance.textWindow.textLength)
-                                        AdvMain.Instance.textWindow.forceDisp();
+                                    AdvMain.Instance.textWindow.forceDisp();
                                 }
 
-                                if (this.curSkipWaitTime >= BepInExLoader.fSkipDelayTimeSec.Value)
+                                if (curSkipWaitTime >= BepInExLoader.fSkipDelayTimeSec.Value)
                                 {
-                                    //AdvMain.Instance.isWait = false; //Force skip wait.
-                                    AdvMain.Instance.onTextWindowClick(); //Simulate click TextWindow.
+                                    //Simulate click TextWindow.
+                                    AdvMain.Instance.onTextWindowClick();
                                 }
                             }
                             break;
-                        //선택지 선택 대기중
                         case AdvMain.WorkList.WORK_SELECT_WAIT:
-                            {
-                                //...
-                            }
                             break;
-                        //이벤트 컷씬 등 대기중 (Ex: 초반 서장실 입실 레비아 컷씬)
                         case AdvMain.WorkList.WORK_TIMELINE_END_WAIT:
                             {
                                 //Basically it can skip with press 'F' key
                             }
                             break;
-                        //대사와 대사 사이 등, Script에 내장되어있는 대기시간으로 추정
                         case AdvMain.WorkList.WORK_WAIT:
                             {
-                                //var leftWaitTime = AdvMain.Instance.waitSec - AdvMain.Instance.waitStartTime;
-                                //AdvMain.Instance.waitStartTime += leftWaitTime;
                                 AdvMain.Instance.waitStartTime = AdvMain.Instance.waitSec;
                             }
                             break;
                     }
                 }
-                catch (System.Exception e)
+                catch (Exception e)
                 {
-                    BepInExLoader.log.LogError($"[DialogueSkipper] Exception: {e}\r\n");
+                    BepInExLoader.log.LogError($"[DialogueSkipper] Exception: {e}");
                 }
+
                 if (BepInExLoader.bDevLog.Value)
                 {
-                    BepInExLoader.log.LogMessage($"[DialogueSkipper] Print ends.\r\n");
+                    BepInExLoader.log.LogMessage($"[DialogueSkipper] Print ends.");
                 }
             }
         }
 
-        this.curSkipWaitTime += Time.deltaTime;
+        curSkipWaitTime += Time.deltaTime;
     }
 }

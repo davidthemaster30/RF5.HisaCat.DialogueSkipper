@@ -46,10 +46,11 @@ public class BepInExLoader : BasePlugin
                 foreach (var keyStr in keysStr)
                 {
                     KeyCode key;
-                    if (System.Enum.TryParse(keyStr, out key))
+                    if (Enum.TryParse(keyStr, out key))
                     {
-                        if (shortCutKeys.Contains(key) == false)
+                        if (shortCutKeys.Contains(key) == false){
                             shortCutKeys.Add(key);
+                        }
                     }
                 }
             }
@@ -68,10 +69,11 @@ public class BepInExLoader : BasePlugin
                 foreach (var keyStr in keysStr)
                 {
                     RF5Input.Key key;
-                    if (System.Enum.TryParse(keyStr, out key))
+                    if (Enum.TryParse(keyStr, out key))
                     {
-                        if (temp.Contains(key) == false)
+                        if (temp.Contains(key) == false){
                             temp.Add(key);
+                        }
                     }
                 }
             }
