@@ -5,15 +5,9 @@ using Il2CppInterop.Runtime.Injection;
 
 namespace RF5.HisaCat.DialogueSkipper;
 
-[BepInPlugin(GUID, MODNAME, VERSION)]
+[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public class BepInExLoader : BasePlugin
 {
-    public const string
-        MODNAME = "DialogueSkipper",
-        AUTHOR = "HisaCat",
-        GUID = "RF5." + AUTHOR + "." + MODNAME,
-        VERSION = "1.0.2";
-
     public static BepInEx.Logging.ManualLogSource log = BepInEx.Logging.Logger.CreateLogSource("DialogueSkipper");
 
     public override void Load()
@@ -23,24 +17,24 @@ public class BepInExLoader : BasePlugin
             ClassInjector.RegisterTypeInIl2Cpp<Bootstrapper>();
             ClassInjector.RegisterTypeInIl2Cpp<DialogueSkipper>();
         }
-        catch
+        catch(Exception error)
         {
-            log.LogError("[DialogueSkipper] FAILED to Register Il2Cpp Types!");
+            log.LogError($"[DialogueSkipper] FAILED to Register Il2Cpp Types! {error}");
         }
 
         try
         {
             DialogueSkipper.LoadConfig(Config);
 
-            var harmony = new Harmony(GUID);
+            var harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
 
             var originalUpdate = AccessTools.Method(typeof(UnityEngine.UI.CanvasScaler), "Update");
             var postUpdate = AccessTools.Method(typeof(Bootstrapper), "Update");
             harmony.Patch(originalUpdate, postfix: new HarmonyMethod(postUpdate));
         }
-        catch
+        catch(Exception error)
         {
-            log.LogError("[DialogueSkipper] Harmony - FAILED to Apply Patches!");
+            log.LogError($"[DialogueSkipper] Harmony - FAILED to Apply Patches! {error}");
         }
     }
 }
