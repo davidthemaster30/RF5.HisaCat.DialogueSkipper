@@ -4,7 +4,7 @@
     <AssemblyName>RF5.HisaCat.DialogueSkipper</AssemblyName>
     <Description>RF5.HisaCat.DialogueSkipper</Description>
     <Company>https://github.com/davidthemaster30/RF5.HisaCat.DialogueSkipper</Company>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>
